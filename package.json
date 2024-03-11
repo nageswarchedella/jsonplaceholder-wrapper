@@ -1,0 +1,26 @@
+{
+  "name": "jsonplaceholder-wrapper",
+  "version": "0.0.1",
+  "description": "This package provides a wrapper around jsonplaceholder api for accessing data.",
+  "main": "./dist/index",
+  "module": "./dist/index",
+  "types": "/dist/index",
+  "homepage": "",
+  "scripts": {
+    "build": "tsup"
+  },
+  "keywords": [
+    "jsonplaceholder",
+    "wrapper",
+    "jsonplaceholder-wrapper"
+  ],
+  "author": "Nageswar Chedella <nageswarchedella@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "url": "https://github.com/nageswarchedella/jsonplaceholder-wrapper"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.2"
+  }
+}
