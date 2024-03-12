@@ -2,6 +2,7 @@
 Current available models: Posts
 Posts usage:
 ```ts
-import Post from 'jsonplaceholder-wrapper';
-Post.find(1).then((res) => res.data).catch((res) => res.error)
+import PostModel from 'jsonplaceholder-wrapper';
+const post = new PostModel();
+post.find(1).then((res) => res.data).catch((res) => res.error)
 ```
