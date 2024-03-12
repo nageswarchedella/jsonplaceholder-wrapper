@@ -67,5 +67,5 @@ export interface GeoType {
 export interface ResponseType<T> {
   status: number,
   data?: T[] | T | null,
-  error?: string | Error
+  error?: string | Error | unknown
 }
