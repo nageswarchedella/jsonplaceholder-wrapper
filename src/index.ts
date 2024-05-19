@@ -1,3 +1,3 @@
 export { default as PostModel } from './models/postModel';
-export * from './constants';
-export * from './types';
+export * from './helpers/constants';
+export * from './helpers/types';

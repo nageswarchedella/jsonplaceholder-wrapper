@@ -28,3 +28,5 @@ export interface GeoType {
   lng: string
 }
 
+export interface UserCreatePaylod extends Omit<UserType, 'id'> {}
+export interface UserUpdatePaylod extends Partial<Omit<UserType, 'id' | 'username' | 'email'>> {}
