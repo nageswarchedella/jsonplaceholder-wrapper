@@ -1,11 +1,11 @@
-import { BASE_URL, HEADERS } from "../constants";
-import { ResponseType } from "../types";
+import { BASE_URL, HEADERS } from "../helpers/constants";
+import { ResponseType } from "../helpers/types";
 
 export class BaseModel<T>{
   constructor(private endpoint: string) { }
-  async fetchData(url: string, options?: RequestInit): Promise<ResponseType<T>> {
+  protected async request(url: string, options?: RequestInit): Promise<ResponseType<T>> {
     try {
-      const response = await fetch(url, options);
+      const response = await fetch(url, { headers: HEADERS, ...options });
       const data = await response.json();
       return { status: response.status, data };
     } catch (error: unknown) {
@@ -13,36 +13,31 @@ export class BaseModel<T>{
     }
   }
 
-  async all(): Promise<ResponseType<T>> {
-    return this.fetchData(`${BASE_URL}/${this.endpoint}`);
+  all(): Promise<ResponseType<T>> {
+    return this.request(`${BASE_URL}/${this.endpoint}`);
   }
 
-  async find(id: number): Promise<ResponseType<T>> {
-    return this.fetchData(`${BASE_URL}/${this.endpoint}/${id}`);
+  find(id: number): Promise<ResponseType<T>> {
+    return this.request(`${BASE_URL}/${this.endpoint}/${id}`);
   }
 
-  async create(payload: any): Promise<ResponseType<T>> {
-    const options: RequestInit = {
+  create(payload: T): Promise<ResponseType<T>> {
+    return this.request(`${BASE_URL}/${this.endpoint}`, {
       method: 'POST',
       body: JSON.stringify(payload),
-      headers: HEADERS
-    };
-    return this.fetchData(`${BASE_URL}/${this.endpoint}`, options);
+    });
   }
 
-  async update(id: number, payload: any): Promise<ResponseType<T>> {
-    const options: RequestInit = {
-      method: "PUT",
+  update(id: number, payload: Partial<T>): Promise<ResponseType<T>> {
+    return this.request(`${BASE_URL}/${this.endpoint}/${id}`, {
+      method: 'PUT',
       body: JSON.stringify(payload),
-      headers: HEADERS
-    };
-    return this.fetchData(`${BASE_URL}/${this.endpoint}/${id}`, options);
+    });
   }
 
-  async delete(id: number): Promise<ResponseType<T>>{
-    const options: RequestInit = {
-      method: "DELETE"
-    }
-    return this.fetchData(`${BASE_URL}/${this.endpoint}`, options)
+  delete(id: number): Promise<ResponseType<T>> {
+    return this.request(`${BASE_URL}/${this.endpoint}/${id}`, {
+      method: 'DELETE',
+    });
   }
 }
